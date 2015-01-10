@@ -1,0 +1,60 @@
+{
+	"name": "Filter",
+
+	"effects": [
+
+		{
+			"name": "Filter",
+
+			"inputs": [],
+
+			"parameters": [
+
+				{
+					"name": "Type",
+					"values": [
+						{
+							"label": "Low Pass",
+							"value": 0
+						},
+
+						{
+							"label": "High Pass",
+							"value": 1
+						},
+
+						{
+							"label": "Band Pass",
+							"value": 2
+						},
+
+						{
+							"label": "Notch",
+							"value": 3
+						}
+					],
+					"midi": {
+						"cc": 3
+					}
+				},
+
+				{
+					"name": "Cutoff",
+					"midi": {
+						"cc": 1
+					}
+				},
+
+				{
+					"name": "Resonance",
+					"midi": {
+						"cc": 2
+					}
+				}
+
+			]
+
+		}
+
+	]
+}
