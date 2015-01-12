@@ -1,4 +1,3 @@
-
 // #include <Arduino.h>
 #include <Wire.h>
 #include <MIDI.h>
@@ -6,11 +5,13 @@
 
 #include "Effectrino.h"
 
-#define MIDIrxPin 10
-#define MIDItxPin 11
+#define MIDI_RX_PIN 10
+#define MIDI_TX_PIN 11
 
 
 USING_NAMESPACE_MIDI
+use namespace EFFECTRINO_NAMESPACE;
+
 
 // TODO Move to EEPROM config
 const byte MIDIInputChannel = 10;
@@ -22,12 +23,16 @@ const bool MIDIDirectControl = true;
 // TODO MIDI config (MIDI IN channel + MIDI Thru + allow direct access + MIDI mapping options)
 
 // TODO current patch (MIDI notes mapping + effects list + effects stack)
+Patch currentPatch;
 
 // Current effects stack instance
 EffectsStack stack;
 
+// Audio Matrix instance
+AudioMatrixProtocol AMP(Wire);
+
 // Set up a new serial port for MIDI
-SoftwareSerial MIDISerialPort = SoftwareSerial(MIDIrxPin, MIDItxPin);
+SoftwareSerial MIDISerialPort = SoftwareSerial(MIDI_RX_PIN, MIDI_TX_PIN);
 
 // Initialize MIDI input/output
 MIDI_CREATE_INSTANCE(SoftwareSerial, MIDISerialPort, MIDI);
@@ -37,23 +42,39 @@ void setup()
 {
     Serial.begin(9600);
 
-	// Define pin modes for MIDI tx, rx:
-  	pinMode(MIDIrxPin, INPUT);
-  	pinMode(MIDItxPin, OUTPUT);
+    // Wait for serial init
+    while(!Serial) {}
 
-	// Init serial port	
-	// MIDISerialPort.begin(31250);
+    // // Initialize matrix connector
+    // initAudioMatrix();
 
-	// Callbacks
-	MIDI.setHandleNoteOn(handleCoreNoteOn); 
-	MIDI.setHandleNoteOff(handleCoreNoteOff); 
+    // Init MIDI connector
+    initMIDI();
+}
+
+// void initAudioMatrix()
+// {
+// }
+
+void initMIDI()
+{
+    // Define pin modes for MIDI tx, rx:
+    pinMode(MIDI_RX_PIN, INPUT);
+    pinMode(MIDI_TX_PIN, OUTPUT);
+
+    // Init serial port 
+    // MIDISerialPort.begin(31250);
+
+    // Callbacks
+    MIDI.setHandleNoteOn(handleCoreNoteOn); 
+    MIDI.setHandleNoteOff(handleCoreNoteOff); 
     MIDI.setHandleControlChange(handleCoreControlChange); 
-	
-	// Listening to all channels
-	MIDI.begin(MIDI_CHANNEL_OMNI);
 
-	// TODO Configure MIDI Thru
+    // TODO Configure MIDI Thru
     MIDI.setThruFilterMode(MIDI_NAMESPACE::Off);
+    
+    // Listening to all channels
+    MIDI.begin(MIDI_CHANNEL_OMNI);
 }
 
 void loop()
@@ -81,10 +102,17 @@ void handleCoreNoteOn(byte channel, byte pitch, byte velocity)
     {
     	// TODO Process core mapping
 
-		// if ( stack.find(pitch) )
-		// {
+        // Get effect object from current patch by note
+        Effect effect = currentPatch.getEffectByMIDINote(pitch);
 
-		// }
+        if ( !effect )
+            return;
+
+        EffectsStack.add(effect);
+
+        // if effect is in stack
+            // 
+
 
 		// read midi config and get effect index
 		// get slot number
@@ -116,5 +144,11 @@ void handleCoreControlChange(byte channel, byte number, byte value)
   Serial.println(channel, DEC); 
   Serial.println(number, DEC); 
   Serial.println(value, DEC);
+}
 
+void matrixSendOn(int x, int y)
+{
+    Wire.beginTransmission(AMP.getI2CAddress());
+    AMP.sendOn(x, y);
+    Wire.endTransmission();
 }

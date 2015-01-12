@@ -6,6 +6,13 @@
 #define MIDIrxPin 10
 #define MIDItxPin 9
 
+// TODO
+#define DEVICE_ADDRESS_PIN0 2
+#define DEVICE_ADDRESS_PIN1 3
+#define DEVICE_ADDRESS_PIN2 4
+
+use namespace EFFECTRINO_NAMESPACE;
+
 // Set up a new serial port for MIDI
 SoftwareSerial MIDISerialPort = SoftwareSerial(MIDIrxPin, MIDItxPin);
 
@@ -15,6 +22,9 @@ MIDI_CREATE_INSTANCE(SoftwareSerial, MIDISerialPort, MIDI);
 void setup()
 {
   Serial.begin(9600);
+
+  // Wait for serial init
+  while(!Serial) {}
 
 	// Define pin modes for MIDI tx, rx:
   pinMode(MIDIrxPin, INPUT);
@@ -26,10 +36,19 @@ void setup()
 	MIDI.setHandleControlChange(handleControlChange);
 	
 	// Listening to all channels
-	MIDI.begin(MIDI_CHANNEL_OMNI);
+	MIDI.begin(getDeviceChannel());
 
 	// Disable MIDI Thru
 	MIDI.turnThruOff();
+}
+
+/**
+  * TODO Get device channel from hardware switch
+  */
+int getDeviceChannel()
+{
+  // TODO Read PORT and mask it with B00000111
+  return 7;
 }
 
 void loop()

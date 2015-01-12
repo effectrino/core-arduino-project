@@ -2,8 +2,12 @@
 #include <Wire.h>
 #include <Effectrino.h>
 
+use namespace EFFECTRINO_NAMESPACE;
+
 // AudioMatrixProtocol * AMP = new AudioMatrixProtocol(Wire);
-AudioMatrixProtocol AMP;
+
+// Setup Matrix Protocol
+AudioMatrixProtocol AMP(Wire);
 
 const byte PORTD_MASK = B01111100;
 const byte PORTC_MASK = B00001111;
@@ -18,9 +22,15 @@ const int RESET_PIN = 6;
 
 void setup()
 {
-	Wire.begin(AMP.getI2CAddress());	// Join i2c bus
+	// Start serial for output
+	Serial.begin(9600);
+
+	// Wait for seril init
+	while(!Serial) {}
+
+	// Setup I2C bus
 	Wire.onReceive(receiveEvent); 		// Register event
-	Serial.begin(9600);           		// Start serial for output
+	Wire.begin(AMP.getI2CAddress());	// Join i2c bus
 
 	// Enable ports output
 	DDRD |= PORTD_MASK;
@@ -51,7 +61,7 @@ void receiveEvent(int eventLength)
 	*/
 void receiveMessage()
 {
-	AudioMatrixMessage * msg = AMP.receiveMessage(Wire);
+	AudioMatrixMessage * msg = AMP.receiveMessage();
 
 	if ( !msg ) {
 		Serial.println("Incorrect message received");
