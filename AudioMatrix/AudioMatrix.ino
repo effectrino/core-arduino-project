@@ -1,10 +1,18 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Effectrino.h>
+#include <tools.h>
 
-use namespace EFFECTRINO_NAMESPACE;
+#include <AudioMatrixProtocol.h>
+#include <AudioMatrixMessage.h>
 
-// AudioMatrixProtocol * AMP = new AudioMatrixProtocol(Wire);
+// Fake dependencies (for hacking build process)
+#include <MIDI.h>
+#include <SoftwareSerial.h>
+
+
+USING_NAMESPASE_EFFECTRINO
+
 
 // Setup Matrix Protocol
 AudioMatrixProtocol AMP(Wire);
@@ -13,20 +21,21 @@ const byte PORTD_MASK = B01111100;
 const byte PORTC_MASK = B00001111;
 const byte PORTB_MASK = B00000111;
 
-const int CS1_PIN = 2;
-const int CS2_PIN = 3;
+const int CS1_PIN = 3;
+const int CS2_PIN = 2;
 const int DATA_PIN = 4;
 const int STROBE_PIN = 5;
 const int RESET_PIN = 6;
 
+const int LED_PIN = 13;
 
 void setup()
 {
-	// Start serial for output
-	Serial.begin(9600);
+	// For debugging
+	initConsole();
 
-	// Wait for seril init
-	while(!Serial) {}
+	pinMode(LED_PIN, OUTPUT);
+	digitalWrite(LED_PIN, LOW);
 
 	// Setup I2C bus
 	Wire.onReceive(receiveEvent); 		// Register event
@@ -49,11 +58,17 @@ void setup()
 // this function is registered as an event, see setup()
 void receiveEvent(int eventLength)
 {
+	digitalWrite(LED_PIN, HIGH);
+
+	// Console << "\r\n\r\nI2C receive event\r\n";
+
 	// Allow multiple messages at once
 	while(Wire.available())
 	{
 		receiveMessage();
 	}
+
+	digitalWrite(LED_PIN, LOW);
 }
 
 /**
@@ -61,29 +76,29 @@ void receiveEvent(int eventLength)
 	*/
 void receiveMessage()
 {
-	AudioMatrixMessage * msg = AMP.receiveMessage();
+	AudioMatrixMessage msg = AMP.receiveMessage();
 
 	if ( !msg ) {
-		Serial.println("Incorrect message received");
+		// Console << "Incorrect message received" << "\r\n";
 		return;
 	}
 
-	Serial.println("Message received, command = " + msg->getCommand());
+	// Console << "CMD = " << msg.getCommand() << "\r\n";
 
-	if ( msg->isReset() )
+	if ( msg.isReset() )
 	{
-		// TODO Reset whole matrix
+		// Reset whole matrix
 		resetMatrix();
 	}
-	else if ( msg->isOn() )
+	else if ( msg.isOn() )
 	{
 		// Enable one crosspoint switch
-		setPoint(msg->getX(), msg->getY(), true);
+		setPoint(msg.getX(), msg.getY(), true);
 	}
-	else if ( msg->isOff() )
+	else if ( msg.isOff() )
 	{
 		// Disable one crosspoint switch
-		setPoint(msg->getX(), msg->getY(), false);
+		setPoint(msg.getX(), msg.getY(), false);
 	}
 }
 
@@ -123,7 +138,7 @@ void setPoint(int x, int y, bool value)
   */
 void resetMatrix()
 {
-	Serial.println("Resetting matrix");
+	// Console << "Resetting matrix";
 
 	digitalWrite(RESET_PIN, HIGH);
 	digitalWrite(RESET_PIN, LOW);
@@ -136,4 +151,93 @@ void loop()
 {
 	// Empty waiting loop
 	delay(100);
+
+	// TEST CASE
+	// testCaseOne(4);
+	// testCaseFour();
+	// testCaseTwo();
+
+}
+
+void testCaseOne(const int width)
+{
+	digitalWrite(LED_PIN, HIGH);
+
+	resetMatrix();
+
+	for(int y=0; y<width; y++)
+	{
+		for(int x=0; x<width; x++)
+		{
+			setPoint(x, y, true);
+			delay(100);
+			// setPoint(x, y, false);
+		}
+
+			// resetMatrix();
+	}
+
+	digitalWrite(LED_PIN, LOW);
+
+	delay(1000);
+}
+
+
+
+void testCaseTwo()
+{
+	digitalWrite(LED_PIN, HIGH);
+
+	resetMatrix();
+
+	for(int x=0; x<16; x++)
+	{
+			setPoint(x, x, true);
+			delay(150);
+			// resetMatrix();
+	}
+
+	digitalWrite(LED_PIN, LOW);
+
+	delay(1000);
+}
+
+void testCaseThree()
+{
+	digitalWrite(LED_PIN, HIGH);
+
+	resetMatrix();
+
+	for(int y=15; y>=0; y--)
+	{
+		for(int x=15; x>=0; x--)
+		{
+			setPoint(x, y, true);
+			delay(100);
+			// setPoint(x, y, false);
+		}
+
+			// resetMatrix();
+	}
+
+	digitalWrite(LED_PIN, LOW);
+
+	delay(1000);
+}
+
+void testCaseFour()
+{
+	digitalWrite(LED_PIN, HIGH);
+
+	resetMatrix();
+
+	setPoint(0, 0, true);
+
+	setPoint(0, 2, true);
+
+	setPoint(2, 0, true);
+
+	digitalWrite(LED_PIN, LOW);
+
+	delay(2000);
 }
