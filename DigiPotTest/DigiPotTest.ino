@@ -1,7 +1,7 @@
 #include <SPI.h>
 
 const int potCS = 2;
-const int potSHDN = 13;
+const int potSHDN = 17;
 const int potRS = 16;
 const int potSDI = 11;
 const int potCLK = 14;
@@ -75,6 +75,7 @@ void digitalPotWrite(int address, int value) {
 
 void loop()
 {
+//  return;
   const int top = 255;
 //  const int top = 64;
   const int incStep = 1;

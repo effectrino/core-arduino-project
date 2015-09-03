@@ -1,7 +1,7 @@
-#include <Audio.h>
-#include <Wire.h>
+//#include <Audio.h>
+//#include <Wire.h>
 #include <SPI.h>
-#include <SD.h>
+//#include <SD.h>
 
 //// GUItool: begin automatically generated code
 ////AudioPlaySdWav           playSdWav1;     //xy=110,48
@@ -15,16 +15,26 @@
 ////AudioConnection          patchCord4(mixer1, pwm1);
 //// GUItool: end automatically generated code
 
-const int pwmPins[] = { 3, 4, 5, 6, 20, 21, 22, 23 }; // skip 10 pin (CS)
+//#if defined(CORE_TEENSY)
+//  const int pwmPins[] = { 3, 4, 5, 6, 20, 21, 22, 23 }; // skip 10 pin (CS)
+//#else
+//  const int pwmPins[] = { 3, 5, 6, 9, 10, 11 };
+//#endif
+
+const int pwmPins[] = { 3, 5, 6, 9, 10, 11 };
+
 const int pwmPinsCount = (sizeof(pwmPins) / sizeof(int));
 
-const int pwmFrequency = 187500; //93750
+//const int pwmFrequency = 187500; //93750
+const int pwmFrequency = 88200; //93750
 
 void setup()
 {
-  analogWriteResolution(8);
-  analogWriteFrequency(3, pwmFrequency);
+//  #ifdef CORE_TEENSY
+//    analogWriteResolution(8);
+//  #endif
 
+//  analogWriteFrequency(3, pwmFrequency);
 //  AudioMemory(8);
 //  lfo1.begin(1, 0.2, WAVEFORM_TRIANGLE);
 //  mixer1.gain(3, 2);
@@ -32,7 +42,7 @@ void setup()
 
 void loop()
 {
-  const int mcs = 1;
+  const int mcs = 10000;
 
   for(int value = 0; value < 256; value++)
   {
@@ -49,15 +59,11 @@ void loop()
   }
 }
 
-//void timerISR(void)
-//{
-//}
-
 void setPWMOutputs(int value)
 {
   for(int i = 0; i < pwmPinsCount; i++)
   {
-    int pin = pwmPins[i];
+    const int pin = pwmPins[i];
     setPWMOutput(pin, value);
   }
 }
