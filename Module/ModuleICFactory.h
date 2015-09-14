@@ -3,7 +3,10 @@
 
 #include <Effectrino.h>
 #include "ModuleIC.h"
-#include "ModuleICList.h"
+//#include "ModuleICList.h"
+
+#include "ModuleICAD8430.h"
+
 
 USING_NAMESPASE_EFFECTRINO
 BEGIN_EFFECTRINO_NAMESPACE
