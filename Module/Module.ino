@@ -8,6 +8,8 @@
 #define MIDIrxPin 10
 #define MIDItxPin 9
 
+#include "MIDIMapper.h"
+
 #include "ModuleIC.h"
 #include "ModuleICFactory.h"
 
@@ -28,7 +30,12 @@ const byte potCSPin = 2;
 const bool potCSInverse = true;
 const byte potSpeed = 10;
 
+// TODO remove
 ModuleIC * ad8403 = ModuleICFactory::create("AD8403", potSpeed, potCSPin, potCSInverse);
+
+// Mapper for linking MIDI events to effect parameters
+MIDIMapper midiMapper;
+
 
 void setup()
 {

@@ -10,21 +10,45 @@ BEGIN_EFFECTRINO_NAMESPACE
 class ModuleIC {
 
   public:
-    ModuleIC(const byte speedInMHz, const byte csPin, const bool invCS)
-      : SPISpeed(speedInMHz * 1000000), CSPin(csPin), inverseCS(invCS) {};
+//    ModuleIC(const byte speedInMHz, const byte csPin, const bool invCS)
+//      : SPISpeed(speedInMHz * 1000000), CSPin(csPin), inverseCS(invCS) {};
+
+    ModuleIC * setCSPin(byte pin);
+    ModuleIC * setInverseCS(bool pin);
+    ModuleIC * setSPISpeed(byte speedInMHz);
+    
+    // TODO set channels pinout
 
     virtual void setChannelValue(byte channel, int value) = 0;
 
   protected:
-    const byte CSPin;
-    const byte inverseCS;
-    const uint32_t SPISpeed;
-    void sendData(byte data[]);
+    byte CSPin;
+    bool inverseCS;
+    uint32_t SPISpeed;
+
+    void sendSPIData(byte data[]);
     void setCS(bool value);
-  
 };
 
-inline void ModuleIC::sendData(byte data[])
+inline ModuleIC * ModuleIC::setCSPin(byte pin)
+{
+  this->CSPin = pin;
+  return this;
+}
+
+inline ModuleIC * ModuleIC::setInverseCS(bool invCS)
+{
+  this->inverseCS = invCS;
+  return this;
+}
+
+inline ModuleIC * ModuleIC::setSPISpeed(byte speedInMHz)
+{
+  this->SPISpeed = speedInMHz * 1000000;
+  return this;
+}
+
+inline void ModuleIC::sendSPIData(byte data[])
 {
   SPISettings spiSettings(SPISpeed, MSBFIRST, SPI_MODE0);
   
