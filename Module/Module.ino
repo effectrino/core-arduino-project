@@ -3,15 +3,21 @@
 #include <duino-tools.h>
 #include <SoftwareSerial.h>
 #include <SPI.h>
+#include <ArduinoJson.h>
+#include <StandardCplusplus.h>
 #include <Effectrino.h>
+
 
 #define MIDIrxPin 10
 #define MIDItxPin 9
 
-#include "MIDIMapper.h"
+#include "ModuleProcessor.h"
+#include "EffectParameter.h"
+#include "ModuleICRegistry.h"
+#include "ConfigParser.h"
 
-#include "ModuleIC.h"
-#include "ModuleICFactory.h"
+// Hardware drivers list
+//#include "ICs.h"
 
 // TODO
 #define DEVICE_ADDRESS_PIN0 2
@@ -26,22 +32,26 @@ SoftwareSerial MIDISerialPort = SoftwareSerial(MIDIrxPin, MIDItxPin);
 // Initialize MIDI input/output
 MIDI_CREATE_INSTANCE(SoftwareSerial, MIDISerialPort, MIDI);
 
-const byte potCSPin = 2;
-const bool potCSInverse = true;
-const byte potSpeed = 10;
+// const byte potCSPin = 2;
+// const bool potCSInverse = true;
+// const byte potSpeed = 10;
 
 // TODO remove
-ModuleIC * ad8403 = ModuleICFactory::create("AD8403", potSpeed, potCSPin, potCSInverse);
+// ModuleIC * ad8403 = ModuleICFactory::create("AD8403", potSpeed, potCSPin, potCSInverse);
 
-// Mapper for linking MIDI events to effect parameters
-MIDIMapper midiMapper;
-
+// Separate class for processing module
+ModuleProcessor moduleProcessor;
 
 void setup()
 {
   initDebug(true);
   
   initMIDI();
+
+  if ( !moduleProcessor.init() )
+  {
+    Debug << "Init failed!" << CRLF;
+  }
 }
 
 void initMIDI()
@@ -55,10 +65,10 @@ void initMIDI()
   MIDI.setHandleNoteOff(handleNoteOff); 
   MIDI.setHandleControlChange(handleControlChange);
 	
-  // Listening to all channels
+  // Listening to module channel
   MIDI.begin(getDeviceChannel());
 
-  // Disable MIDI Thru
+  // Disable MIDI Thru for bidirectional communication
   MIDI.turnThruOff();
 }
 
@@ -76,47 +86,41 @@ void loop()
   // Empty
 
   // TODO remove  
-  ad8403->setChannelValue(0, 255);
-  delay(100);
-  ad8403->setChannelValue(0, 0);
-  delay(100);
+  // ad8403->setChannelValue(0, 255);
+  // delay(100);
+  // ad8403->setChannelValue(0, 0);
+  // delay(100);
 }
 
-// TODO
 void handleNoteOn(byte channel, byte pitch, byte velocity)
 {
-  Debug << "NoteOn " << channel << ", " << pitch << ", " << velocity; 
-//  Serial.println("NoteOn "); //"channel: " + 
-//  Serial.println(channel, DEC); //"channel: " + 
-//  Serial.println(pitch, DEC); //", note pitch: " + 
-//  Serial.println(velocity, DEC); //", velocity: " + 
+  // Debug << "NoteOn " << channel << ", " << pitch << ", " << velocity;
+  moduleProcessor.noteOnEvent(pitch, velocity);
 }
 
-// TODO
 void handleNoteOff(byte channel, byte pitch, byte velocity)
 {
-  Debug << "NoteOff " << channel << ", " << pitch << ", " << velocity; 
-//    Serial.println("NoteOff"); //"channel: " + 
-//    Serial.println(channel, DEC); //"channel: " + 
-//    Serial.println(pitch, DEC); //", note pitch: " + 
-//    Serial.println(velocity, DEC); //", velocity: " + 
-
-    // Do something when the note is released.
-    // Note that NoteOn messages with 0 velocity are interpreted as NoteOffs.
+  // Debug << "NoteOff " << channel << ", " << pitch << ", " << velocity; 
+  moduleProcessor.noteOffEvent(pitch);
 }
 
 void handleControlChange(byte channel, byte number, byte value)
 {
-  Debug << "ControlChange " << channel << ", " << number << ", " << value; 
-
-//  Serial.println("ControlChange"); 
-//  Serial.println(channel, DEC); 
-//  Serial.println(number, DEC); 
-//  Serial.println(value, DEC);
+  // Debug << "ControlChange " << channel << ", " << number << ", " << value;
+  moduleProcessor.ccEvent(number, value);
 }
+
+// TODO SysEx event handler
+
+// void replyWithConfigSysEx()
+// {
+//   // Reserve space
+//   char buffer[512];
+
+//   midiMapper.makeConfig(buffer);
+// }
 
 //ModuleIC * moduleICFactory(String codename, const byte SPISpeed, const byte CSPin, const bool inverseCS = 0)
 //{
 //  return ModuleICFactory::create(codename, SPISpeed, CSPin, inverseCS);
 //}
-

@@ -4,12 +4,14 @@
 #include <Effectrino.h>
 #include "ModuleIC.h"
 
+// Hardware drivers list
+//#include "ICs.h"
+
 // CPU`s internals
 #include "ATmega328PWM.h"
-
+  
 // Digital pots
 #include "AD8430.h"
-
 
 USING_NAMESPASE_EFFECTRINO
 BEGIN_EFFECTRINO_NAMESPACE
@@ -27,7 +29,6 @@ class ModuleICFactory {
 inline ModuleIC * ModuleICFactory::create(String codename, const byte SPISpeed, const byte CSPin, const bool inverseCS)
 {
   ModuleIC * nullValue = (ModuleIC*)NULL;
-  
   ModuleIC * moduleIC = nullValue;
 
   // CPU`s internals
@@ -39,9 +40,9 @@ inline ModuleIC * ModuleICFactory::create(String codename, const byte SPISpeed, 
   if ( moduleIC != nullValue )
   {
     moduleIC
-    ->setSPISpeed(SPISpeed)
-    ->setCSPin(CSPin)
-    ->setInverseCS(inverseCS);
+      ->setSPISpeed(SPISpeed)
+      ->setCSPin(CSPin)
+      ->setInverseCS(inverseCS);
   }
 
   return moduleIC;
