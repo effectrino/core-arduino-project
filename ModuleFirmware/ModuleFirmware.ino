@@ -11,16 +11,16 @@
 #define MIDIrxPin 10
 #define MIDItxPin 9
 
+// TODO
+#define DEVICE_ADDRESS_PIN1 14
+#define DEVICE_ADDRESS_PIN2 15
+#define DEVICE_ADDRESS_PIN3 16
+
 #include "ModuleEffect.h"
 #include "ModuleEffectParameter.h"
 #include "ModuleICRegistry.h"
 #include "ConfigParser.h"
 #include "Module.h"
-
-// TODO
-#define DEVICE_ADDRESS_PIN0 2
-#define DEVICE_ADDRESS_PIN1 3
-#define DEVICE_ADDRESS_PIN2 4
 
 USING_NAMESPASE_EFFECTRINO
 
@@ -28,14 +28,7 @@ USING_NAMESPASE_EFFECTRINO
 SoftwareSerial MIDISerialPort = SoftwareSerial(MIDIrxPin, MIDItxPin);
 
 // Initialize MIDI input/output
-MIDI_CREATE_INSTANCE(SoftwareSerial, MIDISerialPort, MIDI);
-
-// const byte potCSPin = 2;
-// const bool potCSInverse = true;
-// const byte potSpeed = 10;
-
-// TODO remove
-// ModuleIC * ad8403 = ModuleICFactory::create("AD8403", potSpeed, potCSPin, potCSInverse);
+MIDI_CREATE_INSTANCE(SoftwareSerial, MIDISerialPort, midi);
 
 // Separate class for processing module
 Module module;
@@ -63,48 +56,45 @@ void initMIDI()
   MIDI.setHandleNoteOff(handleNoteOff); 
   MIDI.setHandleControlChange(handleControlChange);
 	
-  // Listening to module channel
-  MIDI.begin(getDeviceChannel());
+  // Listening to module MIDI channel (1-based)
+  MIDI.begin(getDeviceChannel() + 1);
 
   // Disable MIDI Thru for bidirectional communication
   MIDI.turnThruOff();
 }
 
 /**
-  * TODO Get device channel from hardware switch
+  * Get device channel from hardware switch
   */
-int getDeviceChannel()
+char getDeviceChannel()
 {
-  // TODO Read PORT and mask it with B00000111
-  return 7;
+  HardwareAddressDetector hwDetector;
+
+  // TODO set correct pins
+  return hwDetector.get(DEVICE_ADDRESS_PIN1, DEVICE_ADDRESS_PIN2, DEVICE_ADDRESS_PIN3);
 }
 
 void loop()
 {
-  // Empty
-
-  // TODO remove  
-  // ad8403->setChannelValue(0, 255);
-  // delay(100);
-  // ad8403->setChannelValue(0, 0);
-  // delay(100);
+  // Process MIDI stream
+  midi.read();
 }
 
 void handleNoteOn(byte channel, byte pitch, byte velocity)
 {
-  // Debug << "NoteOn " << channel << ", " << pitch << ", " << velocity;
+  Debug << F("NoteOn ") << channel << F(", ") << pitch << F(", ") << velocity << CRLF;
   module.noteOnEvent(pitch, velocity);
 }
 
 void handleNoteOff(byte channel, byte pitch, byte velocity)
 {
-  // Debug << "NoteOff " << channel << ", " << pitch << ", " << velocity; 
+  Debug << F("NoteOff ") << channel << F(", ") << pitch << CRLF; 
   module.noteOffEvent(pitch);
 }
 
 void handleControlChange(byte channel, byte number, byte value)
 {
-  // Debug << "ControlChange " << channel << ", " << number << ", " << value;
+  Debug << F("ControlChange event: ch=") << channel << F(", num=") << number << F(", val=") << value << CRLF;
   module.ccEvent(number, value);
 }
 
@@ -115,10 +105,5 @@ void handleControlChange(byte channel, byte number, byte value)
 //   // Reserve space
 //   char buffer[512];
 
-//   midiMapper.makeConfig(buffer);
+//   hwMapper.makeConfig(buffer);
 // }
-
-//ModuleIC * moduleICFactory(String codename, const byte SPISpeed, const byte CSPin, const bool inverseCS = 0)
-//{
-//  return ModuleICFactory::create(codename, SPISpeed, CSPin, inverseCS);
-//}

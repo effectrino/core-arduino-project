@@ -7,7 +7,7 @@
 #include <StandardCplusplus.h>
 #include <map>
 
-#include "ModuleMIDIMapper.h"
+#include "ModuleHardwareMapper.h"
 
 USING_NAMESPASE_EFFECTRINO
 
@@ -16,12 +16,16 @@ BEGIN_EFFECTRINO_NAMESPACE
 class ModuleEffect
 {
   public:
-    // ModuleEffect();
-    ModuleMIDIMapper midiMapper;
-  protected:
-
     // Mapper for linking MIDI events to effect parameters
+    ModuleHardwareMapper hwMapper;
+
+    void initHardware();
 };
+
+void ModuleEffect::initHardware()
+{
+  // TODO custom hardware initialization after changing effect (make switching, setup parameters, etc)
+}
 
 END_EFFECTRINO_NAMESPACE
 

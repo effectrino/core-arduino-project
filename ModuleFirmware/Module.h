@@ -4,10 +4,11 @@
 #include <ArduinoJson.h>
 #include <Effectrino.h>
 #include <duino-tools.h>
+// #include <MIDI.h>
 
 #include "ConfigParser.h"
-#include "ModuleMIDIMapper.h"
-#include "ModuleMIDIMapperItem.h"
+#include "ModuleHardwareMapper.h"
+#include "ModuleHardwareMapperItem.h"
 #include "ModuleIC.h"
 #include "ModuleICFactory.h"
 #include "ModuleICRegistry.h"
@@ -26,14 +27,13 @@ class Module {
     bool init();
     bool parseJSON(char* input);
 
-  	void noteOnEvent(const byte pitch, const byte velocity);
+    void noteOnEvent(const byte pitch, const byte velocity);
   	void noteOffEvent(const byte pitch);
   	void ccEvent(const byte control, const byte value);
 
     void selectEffectByIndex(unsigned char fxIndex);
 
   protected:
-
     // Pointer to current effect
     ModuleEffect* currentEffect = (ModuleEffect*)NULL; 
 
@@ -79,8 +79,10 @@ inline void Module::selectEffectByIndex(unsigned char fxIndex)
     return;
 
   currentEffect = fx;
-}
 
+  // Custom hardware init after effect selection 
+  currentEffect->initHardware();
+}
 
 inline void Module::noteOnEvent(const byte pitch, const byte velocity)
 {
@@ -88,7 +90,7 @@ inline void Module::noteOnEvent(const byte pitch, const byte velocity)
   if ( !this->currentEffect )
     return;
 
-  ModuleMIDIMapperItem* parameter = this->currentEffect->midiMapper.getItemByNote(pitch);
+  ModuleHardwareMapperItem* parameter = this->currentEffect->hwMapper.getItemByNote(pitch);
 
   if ( !parameter )
     return;
@@ -102,7 +104,7 @@ inline void Module::noteOffEvent(const byte pitch)
   if ( !this->currentEffect )
     return;
 
-  ModuleMIDIMapperItem* parameter = this->currentEffect->midiMapper.getItemByNote(pitch);
+  ModuleHardwareMapperItem* parameter = this->currentEffect->hwMapper.getItemByNote(pitch);
 
   if ( !parameter )
     return;
@@ -122,14 +124,14 @@ inline void Module::ccEvent(const byte control, const byte value)
   if ( !this->currentEffect )
     return;
 
-  ModuleMIDIMapperItem* item = this->currentEffect->midiMapper.getItemByCC(control);
+  ModuleHardwareMapperItem* item = this->currentEffect->hwMapper.getItemByCC(control);
 
   // Exit if no item assigned to CC
   if ( !item )
     return;
 
   // Process hardware bindings
-  item->processMapping(icRegistry, value);
+  item->process(icRegistry, value);
 }
 
 END_EFFECTRINO_NAMESPACE

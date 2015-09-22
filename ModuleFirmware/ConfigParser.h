@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <Effectrino.h>
+#include <Debug.h>
 #include <duino-tools.h>
 
 #include "ModuleIC.h"
@@ -43,7 +44,7 @@ inline boolean ConfigParser::process(char* input)
   JsonObject& root = jsonBuffer.parseObject(input);
 
   if ( !root.success() )
-  {
+ {
     Debug << F("Root parsing failed!") << CRLF;
     return false;
   }
@@ -71,6 +72,7 @@ inline boolean ConfigParser::parseHardware(JsonArray& source)
   const char spiSpeedKey[] = "speed";
   const char csPinKey[] = "cs";
   const char inverseCSKey[] = "invCS";
+  const char channelsKey[] = "channels";
 
   char icIndex = 0;
 
@@ -112,7 +114,10 @@ inline boolean ConfigParser::parseHardware(JsonArray& source)
     // Create IC instance
     ModuleIC* icInstance = this->moduleICFactory(pn, spiSpeed, csPin, inverseCS);
 
-    // TODO Add channels data if exists
+    if ( !icSource.containsKey(channelsKey) )
+    {
+      // TODO Add channels data
+    }
 
     // Add IC instance to registry
     icRegistry.setICByIndex(icIndex, icInstance);
@@ -128,6 +133,58 @@ inline boolean ConfigParser::parseEffects(JsonArray& source)
     // TODO Parse parameters
 
       // TODO Parse hardware bindings
+
+  // char icIndex = 0;
+
+  // // Iterate over effects definition
+  // for (JsonArray::iterator it = source.begin(); it != source.end(); ++it)
+  // {
+  //   JsonObject& fxSource = *it;
+
+  //   if ( fxSource == JsonObject::invalid() )
+  //     return false;
+
+  //   if ( !fxSource.containsKey(partNumberKey) )
+  //     return false;
+
+  //   if ( !icSource.containsKey(spiSpeedKey) )
+  //     return false;
+
+  //   if ( !icSource.containsKey(csPinKey) )
+  //     return false;
+
+  //   if ( !icSource.containsKey(inverseCSKey) )
+  //     return false;
+
+  //   // Part number
+  //   String pn = icSource[partNumberKey];
+
+  //   // SPI speed, MHz
+  //   const unsigned char spiSpeed = icSource[spiSpeedKey].as<unsigned char>();
+
+  //   // CS pin
+  //   const unsigned char csPin = icSource[csPinKey].as<unsigned char>();
+
+  //   // Inverse CS
+  //   const unsigned char inverseCS = icSource[inverseCSKey].as<bool>();
+
+  //   // Check all data
+  //   if ( !pn || !spiSpeed || !csPin )
+  //     return false;
+
+  //   // Create IC instance
+  //   ModuleIC* icInstance = this->moduleICFactory(pn, spiSpeed, csPin, inverseCS);
+
+  //   if ( !icSource.containsKey(channelsKey) )
+  //   {
+  //     // TODO Add channels data
+  //   }
+
+  //   // Add IC instance to registry
+  //   icRegistry.setICByIndex(icIndex, icInstance);
+
+  //   icIndex++;
+  // }
 
   return true;
 }
