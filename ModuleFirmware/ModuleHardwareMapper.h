@@ -17,9 +17,9 @@ class ModuleHardwareMapper
   public:
     ModuleHardwareMapper();
     ModuleHardwareMapperItem* getItemByCC(unsigned char controlIndex);
-    void setParameterByCC(unsigned char controlIndex, ModuleHardwareMapperItem *parameter);
+    void setItemByCC(unsigned char controlIndex, ModuleHardwareMapperItem *item);
     ModuleHardwareMapperItem* getItemByNote(unsigned char noteIndex);
-    void setParameterByNote(unsigned char noteIndex, ModuleHardwareMapperItem *parameter);
+    void setItemByNote(unsigned char noteIndex, ModuleHardwareMapperItem *item);
   protected:
     std::map<unsigned char, ModuleHardwareMapperItem*> ccMap;
     std::map<unsigned char, ModuleHardwareMapperItem*> noteMap;
@@ -34,9 +34,9 @@ ModuleHardwareMapperItem* ModuleHardwareMapper::getItemByCC(unsigned char contro
   return ccMap[controlIndex];
 }
 
-void ModuleHardwareMapper::setParameterByCC(unsigned char controlIndex, ModuleHardwareMapperItem *parameter)
+void ModuleHardwareMapper::setItemByCC(unsigned char controlIndex, ModuleHardwareMapperItem *item)
 {
-  ccMap[controlIndex] = parameter;
+  ccMap[controlIndex] = item;
 }
 
 ModuleHardwareMapperItem* ModuleHardwareMapper::getItemByNote(unsigned char noteIndex)
@@ -44,9 +44,9 @@ ModuleHardwareMapperItem* ModuleHardwareMapper::getItemByNote(unsigned char note
   return noteMap[noteIndex];
 }
 
-void ModuleHardwareMapper::setParameterByNote(unsigned char noteIndex, ModuleHardwareMapperItem *parameter)
+void ModuleHardwareMapper::setItemByNote(unsigned char noteIndex, ModuleHardwareMapperItem *item)
 {
-  noteMap[noteIndex] = parameter;
+  noteMap[noteIndex] = item;
 }
 
 END_EFFECTRINO_NAMESPACE

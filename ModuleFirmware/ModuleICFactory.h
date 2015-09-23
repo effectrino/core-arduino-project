@@ -17,7 +17,7 @@ USING_NAMESPASE_EFFECTRINO
 BEGIN_EFFECTRINO_NAMESPACE
 
 #define REGISTER_MODULE_IC(CODENAME) \
-  if ( codename == #CODENAME ) \
+  if ( codename == F(#CODENAME) ) \
     moduleIC = new ModuleIC##CODENAME();
 
 

@@ -13,22 +13,26 @@ USING_NAMESPASE_EFFECTRINO
 
 BEGIN_EFFECTRINO_NAMESPACE
 
-typedef std::vector<ModuleEffectParameterHardwareBinding> ModuleHardwareMapperItemBindingsVector;
-typedef std::vector<ModuleEffectParameterHardwareBinding>::iterator ModuleHardwareMapperItemBindingsVectorIterator;
-typedef std::vector<ModuleEffectParameterHardwareBinding>::size_type ModuleHardwareMapperItemBindingsVectorSizeType;
+typedef std::vector<ModuleEffectParameterHardwareBinding*> ModuleHardwareMapperItemBindingsVector;
+typedef std::vector<ModuleEffectParameterHardwareBinding*>::iterator ModuleHardwareMapperItemBindingsVectorIterator;
+typedef std::vector<ModuleEffectParameterHardwareBinding*>::size_type ModuleHardwareMapperItemBindingsVectorSizeType;
 
 class ModuleHardwareMapperItem
 {
   public:
-    void process(ModuleICRegistry& icRegistry, const char);
-    // ModuleHardwareMapperItemBindingsVectorIterator getHardwareBindingsBegin();
-    // ModuleHardwareMapperItemBindingsVectorIterator getHardwareBindingsEnd();
+    void addBinding(ModuleEffectParameterHardwareBinding* binding);
+    void process(ModuleICRegistry& icRegistry, const uint8_t);
 
   protected:
     ModuleHardwareMapperItemBindingsVector hwMapping;
 };
 
-void ModuleHardwareMapperItem::process(ModuleICRegistry& icRegistry, const char value)
+void ModuleHardwareMapperItem::addBinding(ModuleEffectParameterHardwareBinding* binding)
+{
+  hwMapping.push_back(binding);
+}
+
+void ModuleHardwareMapperItem::process(ModuleICRegistry& icRegistry, const uint8_t value)
 {
   // Get channels count
   ModuleHardwareMapperItemBindingsVectorSizeType max = hwMapping.size();
@@ -37,12 +41,12 @@ void ModuleHardwareMapperItem::process(ModuleICRegistry& icRegistry, const char 
   for(ModuleHardwareMapperItemBindingsVectorSizeType i = 0; i != max; i++)
   {
     // Binding
-    ModuleEffectParameterHardwareBinding bind = hwMapping[i];
+    ModuleEffectParameterHardwareBinding* binding = hwMapping[i];
 
     // Get IC object
-    ModuleIC* ic = icRegistry.getICByIndex(hwMapping[i].icIndex);
+    ModuleIC* ic = icRegistry.getICByIndex(binding->icIndex);
 
-    // If no IC  found
+    // Warn if no IC found
     if ( !ic )
     {
       Debug << F("Wrong IC index in effect midi mapping!");
@@ -50,19 +54,9 @@ void ModuleHardwareMapperItem::process(ModuleICRegistry& icRegistry, const char 
     }
 
     // Set IC channel data
-    ic->setChannelValue(hwMapping[i].channelIndex, value);
+    ic->setChannelValue(binding->channelIndex, value);
   }
 }
-
-// ModuleHardwareMapperItemBindingsVectorIterator ModuleHardwareMapperItem::getHardwareBindingsIterator()
-// {
-//   return hwMapping.begin();
-// }
-
-// ModuleHardwareMapperItemBindingsVectorSizeType ModuleHardwareMapperItem::getHardwareBindingsSize()
-// {
-//   return hwMapping.size();
-// }
 
 END_EFFECTRINO_NAMESPACE
 

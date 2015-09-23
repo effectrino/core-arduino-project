@@ -67,7 +67,7 @@
 			"file": "ModuleFirmware.ino",
 			"settings":
 			{
-				"buffer_size": 2321,
+				"buffer_size": 2425,
 				"line_ending": "Unix"
 			}
 		},
@@ -161,6 +161,8 @@
 	],
 	"file_history":
 	[
+		"/home/spotman/Arduino/libraries/MIDI/midi_Namespace.h",
+		"/home/spotman/Arduino/libraries/MIDI/midi_Defs.h",
 		"/home/spotman/Arduino/libraries/ArduinoJson/src/JsonBuffer.cpp",
 		"/home/spotman/Arduino/libraries/ArduinoJson/include/ArduinoJson/Internals/Encoding.hpp",
 		"/home/spotman/Arduino/libraries/duino-tools/HardwareAddressDetector.h",
@@ -217,6 +219,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"midi",
 			"DEVICE_ADDRESS_PIN1",
 			"midiMapper",
 			"ModuleHardwareMapperItemHardwareBindingsVector",
@@ -292,15 +295,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2321,
+						"buffer_size": 2425,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1958,
-								1958
+								1810,
+								1810
 							]
 						],
 						"settings":
@@ -310,7 +313,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1214.0,
+						"translation.y": 1125.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -949,6 +952,18 @@
 	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1442950955.2807505":
 	{
 		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443001958.5334616":
+	{
+		"height": 279.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443002037.8290913":
+	{
+		"height": 378.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443002066.6957135":
+	{
+		"height": 195.0
 	},
 	"output.build|/home/spotman/Arduino/Effectrino/Module|1442571904.856786":
 	{

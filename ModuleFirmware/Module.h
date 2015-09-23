@@ -43,6 +43,8 @@ class Module {
     // Mapper for module hardware
     ModuleICRegistry icRegistry;
 
+    ModuleHardwareMapper* getHardwareMapper();
+
 };
 
 inline bool Module::init()
@@ -52,8 +54,17 @@ inline bool Module::init()
 
   #include "TestJSONConfig.h"
 
+  Debug << F("Free RAM after JSON string include") << CRLF;
+  Debug.printFreeRam();
+
   if ( !this->parseJSON(testJSONConfig) )
     return false;
+
+  // Select first effect
+  this->selectEffectByIndex(0);
+
+  Debug << F("Free RAM after parsing config") << CRLF;
+  Debug.printFreeRam();
 
   return true;
 }
@@ -86,30 +97,30 @@ inline void Module::selectEffectByIndex(unsigned char fxIndex)
 
 inline void Module::noteOnEvent(const byte pitch, const byte velocity)
 {
-  // Exit if no fx selected
-  if ( !this->currentEffect )
-    return;
+  // // Exit if no fx selected
+  // if ( !this->currentEffect )
+  //   return;
 
-  ModuleHardwareMapperItem* parameter = this->currentEffect->hwMapper.getItemByNote(pitch);
+  // ModuleHardwareMapperItem* parameter = this->currentEffect->hwMapper.getItemByNote(pitch);
 
-  if ( !parameter )
-    return;
+  // if ( !parameter )
+  //   return;
 
-  // TODO process parameter on
+  // // TODO process parameter on
 }
 
 inline void Module::noteOffEvent(const byte pitch)
 {
-  // Exit if no fx selected
-  if ( !this->currentEffect )
-    return;
+  // // Exit if no fx selected
+  // if ( !this->currentEffect )
+  //   return;
 
-  ModuleHardwareMapperItem* parameter = this->currentEffect->hwMapper.getItemByNote(pitch);
+  // ModuleHardwareMapperItem* parameter = this->currentEffect->hwMapper.getItemByNote(pitch);
 
-  if ( !parameter )
-    return;
+  // if ( !parameter )
+  //   return;
 
-  // TODO process parameter off
+  // // TODO process parameter off
 }
 
 
@@ -120,11 +131,13 @@ inline void Module::noteOffEvent(const byte pitch)
 
 inline void Module::ccEvent(const byte control, const byte value)
 {
-  // Exit if no fx selected
-  if ( !this->currentEffect )
+  ModuleHardwareMapper* mapper = this->getHardwareMapper();
+
+  // Exit if no mapper
+  if ( !mapper )
     return;
 
-  ModuleHardwareMapperItem* item = this->currentEffect->hwMapper.getItemByCC(control);
+  ModuleHardwareMapperItem* item = mapper->getItemByCC(control);
 
   // Exit if no item assigned to CC
   if ( !item )
@@ -132,6 +145,19 @@ inline void Module::ccEvent(const byte control, const byte value)
 
   // Process hardware bindings
   item->process(icRegistry, value);
+}
+
+/**
+  * Returns instance of MIDI mapper linked to current effect
+  *
+  * @return ModuleHardwareMapper*|NULL
+  */
+inline ModuleHardwareMapper* Module::getHardwareMapper()
+{
+  if ( !this->currentEffect )
+    return (ModuleHardwareMapper*)NULL;
+
+  return this->currentEffect->getHardwareMapper();
 }
 
 END_EFFECTRINO_NAMESPACE

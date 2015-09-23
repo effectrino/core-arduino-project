@@ -1,20 +1,20 @@
 #include <Arduino.h>
 #include <MIDI.h>
 #include <duino-tools.h>
-#include <SoftwareSerial.h>
+//#include <SoftwareSerial.h>
 #include <SPI.h>
 #include <ArduinoJson.h>
 #include <StandardCplusplus.h>
 #include <Effectrino.h>
 
 
-#define MIDIrxPin 10
-#define MIDItxPin 9
+//#define MIDIrxPin 10
+//#define MIDItxPin 9
 
 // TODO
-#define DEVICE_ADDRESS_PIN1 14
-#define DEVICE_ADDRESS_PIN2 15
-#define DEVICE_ADDRESS_PIN3 16
+#define DEVICE_ADDRESS_PIN1 10
+#define DEVICE_ADDRESS_PIN2 11
+#define DEVICE_ADDRESS_PIN3 12
 
 #include "ModuleEffect.h"
 #include "ModuleEffectParameter.h"
@@ -25,39 +25,56 @@
 USING_NAMESPASE_EFFECTRINO
 
 // Set up a new serial port for MIDI
-SoftwareSerial MIDISerialPort = SoftwareSerial(MIDIrxPin, MIDItxPin);
+//SoftwareSerial MIDISerialPort = SoftwareSerial(MIDIrxPin, MIDItxPin);
 
 // Initialize MIDI input/output
-MIDI_CREATE_INSTANCE(SoftwareSerial, MIDISerialPort, midi);
+//MIDI_CREATE_INSTANCE(SoftwareSerial, MIDISerialPort, MIDI);
+
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI); // pins 18/19
 
 // Separate class for processing module
 Module module;
 
 void setup()
 {
-  initDebug(true);
+  Debug.init(115200);
+
+  Debug.printFreeRam();
   
   initMIDI();
 
+  Debug.printFreeRam();
+
   if ( !module.init() )
   {
-    Debug << "Init failed!" << CRLF;
+    Debug << F("Init failed!") << CRLF;
   }
+  else
+  {
+    Debug << F("Init done!") << CRLF;
+  }
+
+  Debug.printFreeRam();
 }
 
 void initMIDI()
 {
-  // Define pin modes for MIDI tx, rx:
-  pinMode(MIDIrxPin, INPUT);
-  pinMode(MIDItxPin, OUTPUT);
+//  // Define pin modes for MIDI tx, rx:
+//  pinMode(MIDIrxPin, INPUT);
+//  pinMode(MIDItxPin, OUTPUT);
 
   // Callbacks
-  MIDI.setHandleNoteOn(handleNoteOn); 
-  MIDI.setHandleNoteOff(handleNoteOff); 
+  MIDI.setHandleNoteOn(handleNoteOn);
+  MIDI.setHandleNoteOff(handleNoteOff);
   MIDI.setHandleControlChange(handleControlChange);
-	
+
+  // Get device channel
+  uint8_t hwAddress = getDeviceChannel();
+  
+  Debug << F("Hardware address is ") << hwAddress << CRLF;
+
   // Listening to module MIDI channel (1-based)
-  MIDI.begin(getDeviceChannel() + 1);
+  MIDI.begin(hwAddress + 1);
 
   // Disable MIDI Thru for bidirectional communication
   MIDI.turnThruOff();
@@ -77,24 +94,24 @@ char getDeviceChannel()
 void loop()
 {
   // Process MIDI stream
-  midi.read();
+  MIDI.read();
 }
 
 void handleNoteOn(byte channel, byte pitch, byte velocity)
 {
-  Debug << F("NoteOn ") << channel << F(", ") << pitch << F(", ") << velocity << CRLF;
+  Debug << F("NoteOn: ch=") << channel << F(", note=") << pitch << F(", vel=") << velocity << CRLF;
   module.noteOnEvent(pitch, velocity);
 }
 
 void handleNoteOff(byte channel, byte pitch, byte velocity)
 {
-  Debug << F("NoteOff ") << channel << F(", ") << pitch << CRLF; 
+  Debug << F("NoteOff: ch=") << channel << F(", note=") << pitch << CRLF; 
   module.noteOffEvent(pitch);
 }
 
 void handleControlChange(byte channel, byte number, byte value)
 {
-  Debug << F("ControlChange event: ch=") << channel << F(", num=") << number << F(", val=") << value << CRLF;
+  Debug << F("CC: ch=") << channel << F(", n=") << number << F(", v=") << value << CRLF;
   module.ccEvent(number, value);
 }
 
