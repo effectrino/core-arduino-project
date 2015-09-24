@@ -38,9 +38,9 @@ Module module;
 void setup()
 {
   Debug.init(115200);
-
   Debug.printFreeRam();
-  
+
+//  Debug.benchmarkStart();  
   initMIDI();
 
   Debug.printFreeRam();
@@ -53,6 +53,8 @@ void setup()
   {
     Debug << F("Init done!") << CRLF;
   }
+
+//  Debug.benchmarkStop();  
 
   Debug.printFreeRam();
 }
@@ -112,7 +114,10 @@ void handleNoteOff(byte channel, byte pitch, byte velocity)
 void handleControlChange(byte channel, byte number, byte value)
 {
   Debug << F("CC: ch=") << channel << F(", n=") << number << F(", v=") << value << CRLF;
+
+  Debug.benchmarkStart();
   module.ccEvent(number, value);
+  Debug.benchmarkStop();
 }
 
 // TODO SysEx event handler

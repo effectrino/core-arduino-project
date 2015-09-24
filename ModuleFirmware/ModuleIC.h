@@ -72,9 +72,9 @@ inline void ModuleIC::sendSPIData(byte data[])
 inline void ModuleIC::setCS(bool value)
 {
   if ( this->inverseCS )
-    digitalWrite(this->CSPin, ((value == LOW) ? HIGH : LOW));
-  else
-    digitalWrite(this->CSPin, value);
+    value = !value;
+
+  digitalWrite(this->CSPin, ((value == LOW) ? LOW : HIGH));
 }
 
 END_EFFECTRINO_NAMESPACE

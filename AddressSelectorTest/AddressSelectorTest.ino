@@ -8,9 +8,13 @@ void setup()
 {
   Debug.init(true);
 
+  Debug.benchmarkStart();
+
   HardwareAddressDetector hwAddress;
 
   byte address = hwAddress.get(4, 5, 6, 7);
+
+  Debug.benchmarkStop();
 
   Debug << F("Address is ") << address << CRLF;
 

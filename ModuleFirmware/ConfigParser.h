@@ -336,13 +336,14 @@ inline boolean ConfigParser::parseEffectParameters(JsonArray& source, ModuleEffe
         return false;
       }
 
-
-      if (strcmp(midiEventType, "CC"))
+      if (strcmp(midiEventType, "CC") == 0)
       {
+        Debug << F("Binding mapperItem to MIDI CC ") << midiEventData << CRLF;
         hwMapper->setItemByCC(midiEventData, mapperItem);
       }
-      else if (strcmp(midiEventType, "NoteOn") || strcmp(midiEventType, "NoteOff"))
+      else if (strcmp(midiEventType, "NoteOn") == 0 || strcmp(midiEventType, "NoteOff") == 0)
       {
+        Debug << F("Binding mapperItem to MIDI Note ") << midiEventData << CRLF;
         hwMapper->setItemByNote(midiEventData, mapperItem);
       }
       else

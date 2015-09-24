@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <Effectrino.h>
+#include <duino-tools.h>
 #include "ModuleIC.h"
 
 USING_NAMESPASE_EFFECTRINO
@@ -20,6 +21,8 @@ inline void ModuleICATmega328PWM::setChannelValue(byte channel, int value)
   // Channel to output # mapping
   // TODO move to config
   const byte channelPins[] = {3, 5, 6, 9, 10, 11};
+  
+  Debug << F("Setting PMW pin ") << channelPins[channel] << F(" to ") << value << CRLF;
 
   analogWrite(channelPins[channel], value);
 }

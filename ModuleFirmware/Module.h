@@ -54,7 +54,7 @@ inline bool Module::init()
 
   #include "TestJSONConfig.h"
 
-  Debug << F("Free RAM after JSON string include") << CRLF;
+  Debug << F("[after JSON string include] ");
   Debug.printFreeRam();
 
   if ( !this->parseJSON(testJSONConfig) )
@@ -63,7 +63,7 @@ inline bool Module::init()
   // Select first effect
   this->selectEffectByIndex(0);
 
-  Debug << F("Free RAM after parsing config") << CRLF;
+  Debug << F("[after parsing config] ");
   Debug.printFreeRam();
 
   return true;
@@ -135,13 +135,19 @@ inline void Module::ccEvent(const byte control, const byte value)
 
   // Exit if no mapper
   if ( !mapper )
+  {
+    Debug << F("No mapper found") << CRLF;
     return;
-
+  }
+ 
   ModuleHardwareMapperItem* item = mapper->getItemByCC(control);
 
   // Exit if no item assigned to CC
   if ( !item )
+  {
+    Debug << F("No mapper item assigned to CC ") << control << CRLF;
     return;
+  }
 
   // Process hardware bindings
   item->process(icRegistry, value);
