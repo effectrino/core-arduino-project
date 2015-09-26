@@ -2,10 +2,8 @@
 #define MODULE_EFFECT_H_
 
 #include <Arduino.h>
+// #include <StandardCplusplus.h>
 #include <Effectrino.h>
-
-#include <StandardCplusplus.h>
-#include <map>
 
 #include "ModuleHardwareMapper.h"
 
@@ -22,24 +20,8 @@ class ModuleEffect
 
   protected:  
     // Mapper for linking MIDI events to effect parameters
-    ModuleHardwareMapper* hwMapper; // = new ModuleHardwareMapper();
+    ModuleHardwareMapper* hwMapper;
 };
-
-ModuleEffect::ModuleEffect()
-{
-  this->hwMapper = new ModuleHardwareMapper();
-}
-
-void ModuleEffect::initHardware()
-{
-  // TODO custom hardware initialization after changing effect (make switching, setup parameters, etc)
-}
-
-inline ModuleHardwareMapper* ModuleEffect::getHardwareMapper()
-{
-  return this->hwMapper;
-}
-
 
 END_EFFECTRINO_NAMESPACE
 

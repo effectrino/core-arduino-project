@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Module",
+				"ModuleEffect"
+			],
+			[
 				"midi",
 				"midiEventType"
 			],
@@ -14,10 +18,6 @@
 			[
 				"get",
 				"getHardwareMapper"
-			],
-			[
-				"Module",
-				"ModuleHardwareMapper"
 			],
 			[
 				"ic",
@@ -87,7 +87,23 @@
 			"file": "ModuleFirmware.ino",
 			"settings":
 			{
-				"buffer_size": 2834,
+				"buffer_size": 2842,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ModuleHardwareMapperItem.cpp",
+			"settings":
+			{
+				"buffer_size": 1072,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ModuleHardwareMapper.cpp",
+			"settings":
+			{
+				"buffer_size": 765,
 				"line_ending": "Unix"
 			}
 		},
@@ -95,7 +111,31 @@
 			"file": "Module.h",
 			"settings":
 			{
-				"buffer_size": 3536,
+				"buffer_size": 1119,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Module.cpp",
+			"settings":
+			{
+				"buffer_size": 2761,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/spotman/Arduino/libraries/Effectrino/Effectrino.h",
+			"settings":
+			{
+				"buffer_size": 941,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ConfigParser.cpp",
+			"settings":
+			{
+				"buffer_size": 9374,
 				"line_ending": "Unix"
 			}
 		},
@@ -103,31 +143,7 @@
 			"file": "ConfigParser.h",
 			"settings":
 			{
-				"buffer_size": 10991,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "ModuleEffect.h",
-			"settings":
-			{
-				"buffer_size": 856,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "TestJSONConfig.h",
-			"settings":
-			{
-				"buffer_size": 904,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "ModuleHardwareMapperItem.h",
-			"settings":
-			{
-				"buffer_size": 1728,
+				"buffer_size": 1228,
 				"line_ending": "Unix"
 			}
 		}
@@ -173,12 +189,40 @@
 	],
 	"file_history":
 	[
-		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleHardwareMapper.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffect.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectParameter.h",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectParameterHardwareBinding.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectRegistry.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleHardwareMapper.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleHardwareMapperItem.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleIC.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleICRegistry.cpp",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleICFactory.cpp",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleICFactory.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/AD8430.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleICRegistry.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffect.cpp",
 		"/home/spotman/Arduino/libraries/ArduinoJson/src/JsonBuffer.cpp",
 		"/home/spotman/Arduino/libraries/ArduinoJson/include/ArduinoJson/Internals/Encoding.hpp",
-		"/home/spotman/Arduino/libraries/StandardCplusplus/vector",
+		"/home/spotman/Arduino/libraries/StandardCplusplus/cstdlib",
+		"/home/spotman/bin/arduino-1.6.4/hardware/arduino/avr/cores/arduino/Arduino.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleIC.cpp",
+		"/home/spotman/Arduino/libraries/Effectrino/Effectrino.h",
+		"/home/spotman/Arduino/libraries/StandardCplusplus/basic_definitions",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleHardwareMapperItem.cpp",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleHardwareMapper.cpp",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectRegistry.cpp",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectParameterHardwareBinding.cpp",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/TestJSONConfig.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ConfigParser.h",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ConfigParser.cpp",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/Module.cpp",
+		"/home/spotman/Arduino/Effectrino/ModuleFirmware/Module.h",
+		"/tmp/Stino_build/ModuleFirmware/ModuleFirmware.ino.cpp.o:/home/spotman/Arduino/libraries/StandardCplusplus/map",
+		"/home/spotman/Arduino/libraries/StandardCplusplus/map",
+		"/home/spotman/Arduino/libraries/StandardCplusplus/list",
+		"/tmp/Stino_build/ModuleFirmware/ModuleFirmware.ino.cpp.o:/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffect.h",
+		"/home/spotman/Arduino/libraries/StandardCplusplus/vector",
 		"/home/spotman/Arduino/libraries/MIDI/midi_Namespace.h",
 		"/home/spotman/Arduino/libraries/MIDI/midi_Defs.h",
 		"/home/spotman/Arduino/libraries/duino-tools/HardwareAddressDetector.h",
@@ -188,13 +232,7 @@
 		"/home/spotman/bin/arduino-1.6.4/hardware/arduino/avr/cores/arduino/main.cpp",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleMIDIMapper.h",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleMIDIMapperItem.h",
-		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleICRegistry.h",
-		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectRegistry.h",
 		"/home/spotman/Arduino/libraries/StandardCplusplus/deque",
-		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleIC.h",
-		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectParameter.h",
-		"/home/spotman/Arduino/libraries/Effectrino/Effectrino.h",
-		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffect.h",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/MIDIMapper.h",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/MIDIMapperItem.h",
 		"/home/spotman/Arduino/Effectrino/Module/Module.ino",
@@ -226,6 +264,7 @@
 		"height": 90.0,
 		"where_history":
 		[
+			"/home/spotman/Arduino/libraries/ArduinoJson",
 			"",
 			"/home/spotman/Arduino/Effectrino/Module"
 		]
@@ -235,6 +274,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"long",
+			"inline ",
 			"parameter",
 			"paramMIDIDataKey",
 			"paramMIDITypeKey",
@@ -277,6 +318,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"",
 			"hwMapper",
 			"ModuleHardwareMapperItem",
 			"ModuleHardwareMapper",
@@ -306,7 +348,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 7,
 			"sheets":
 			[
 				{
@@ -315,7 +357,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2834,
+						"buffer_size": 2842,
 						"regions":
 						{
 						},
@@ -333,107 +375,137 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 945.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Module.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3536,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1800.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "ConfigParser.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10991,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4950.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "ModuleEffect.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 856,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								728,
-								728
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 224.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "TestJSONConfig.h",
+					"buffer": 1,
+					"file": "ModuleHardwareMapperItem.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 904,
+						"buffer_size": 1072,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "ModuleHardwareMapper.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 765,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 696.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Module.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1119,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								192,
+								192
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Module.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2761,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								72,
+								72
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/spotman/Arduino/libraries/Effectrino/Effectrino.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 941,
 						"regions":
 						{
 						},
@@ -452,24 +524,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "ModuleHardwareMapperItem.h",
+					"buffer": 6,
+					"file": "ConfigParser.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1728,
+						"buffer_size": 9374,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1325,
-								1325
+								291,
+								291
 							]
 						],
 						"settings":
@@ -479,10 +551,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 374.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "ConfigParser.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1228,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								605,
+								605
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1031,6 +1133,118 @@
 	{
 		"height": 201.0
 	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443272019.5509665":
+	{
+		"height": 319.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443272198.7103055":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443272793.3218622":
+	{
+		"height": 327.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443272845.9303677":
+	{
+		"height": 190.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443272921.8591733":
+	{
+		"height": 219.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443273105.5326803":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443276359.59509":
+	{
+		"height": 321.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443276401.0987022":
+	{
+		"height": 344.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443276501.1360404":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443276546.9783142":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443276575.3390708":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443276606.4755208":
+	{
+		"height": 394.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443276637.164689":
+	{
+		"height": 377.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443292868.5176914":
+	{
+		"height": 243.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293090.753539":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293119.7457123":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293141.016091":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293241.7548056":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293263.7403998":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293387.9225466":
+	{
+		"height": 295.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293420.4427195":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293474.24121":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443293674.790798":
+	{
+		"height": 353.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443294043.445826":
+	{
+		"height": 221.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443294100.5780053":
+	{
+		"height": 251.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443294144.0992057":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443294456.2451434":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443294489.9516268":
+	{
+		"height": 219.0
+	},
 	"output.build|/home/spotman/Arduino/Effectrino/Module|1442571904.856786":
 	{
 		"height": 100.0
@@ -1499,6 +1713,10 @@
 	{
 		"height": 100.0
 	},
+	"output.upload|/home/spotman/Arduino/Effectrino/ModuleFirmware|1443294179.0442524":
+	{
+		"height": 315.0
+	},
 	"output.upload|/home/spotman/Arduino/libraries/duino-tools|1442854979.8383937":
 	{
 		"height": 0.0
@@ -1519,7 +1737,7 @@
 	"project": "ModuleFirmware.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":

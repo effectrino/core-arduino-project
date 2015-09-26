@@ -1,11 +1,15 @@
 #include <Arduino.h>
+#include <StandardCplusplus.h>
 #include <MIDI.h>
 #include <duino-tools.h>
 //#include <SoftwareSerial.h>
 #include <SPI.h>
-#include <ArduinoJson.h>
-#include <StandardCplusplus.h>
+
+#include <map>
+#include <vector>
+
 #include <Effectrino.h>
+#include <ArduinoJson.h>
 
 
 //#define MIDIrxPin 10
@@ -16,6 +20,8 @@
 #define DEVICE_ADDRESS_PIN2 11
 #define DEVICE_ADDRESS_PIN3 12
 
+#include "ModuleHardwareMapperItem.h"
+#include "ModuleHardwareMapper.h"
 #include "ModuleEffect.h"
 #include "ModuleEffectParameter.h"
 #include "ModuleICRegistry.h"
@@ -40,10 +46,10 @@ void setup()
   Debug.init(115200);
   Debug.printFreeRam();
 
-//  Debug.benchmarkStart();  
+//  Debug.benchmarkStart();
   initMIDI();
 
-  Debug.printFreeRam();
+//  Debug.printFreeRam();
 
   if ( !module.init() )
   {
@@ -115,9 +121,9 @@ void handleControlChange(byte channel, byte number, byte value)
 {
   Debug << F("CC: ch=") << channel << F(", n=") << number << F(", v=") << value << CRLF;
 
-  Debug.benchmarkStart();
+//  Debug.benchmarkStart();
   module.ccEvent(number, value);
-  Debug.benchmarkStop();
+//  Debug.benchmarkStop();
 }
 
 // TODO SysEx event handler
@@ -126,6 +132,4 @@ void handleControlChange(byte channel, byte number, byte value)
 // {
 //   // Reserve space
 //   char buffer[512];
-
-//   hwMapper.makeConfig(buffer);
 // }

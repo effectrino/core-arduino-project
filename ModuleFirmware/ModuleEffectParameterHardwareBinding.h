@@ -2,6 +2,7 @@
 #define MODULE_EFFECT_PARAMETER_HARDWARE_BINDING_H_
 
 #include <Arduino.h>
+#include <StandardCplusplus.h>
 #include <Effectrino.h>
 
 
@@ -12,8 +13,8 @@ BEGIN_EFFECTRINO_NAMESPACE
 class ModuleEffectParameterHardwareBinding {
   public:
     ModuleEffectParameterHardwareBinding(uint8_t icI, uint8_t chI);
-    uint8_t icIndex;
-    uint8_t channelIndex;
+    const uint8_t icIndex;
+    const uint8_t channelIndex;
 };
 
 inline ModuleEffectParameterHardwareBinding::ModuleEffectParameterHardwareBinding(uint8_t icI, uint8_t chI) : icIndex(icI), channelIndex(chI) {}

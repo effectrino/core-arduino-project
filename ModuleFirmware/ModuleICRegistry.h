@@ -3,9 +3,10 @@
 
 #include <Arduino.h>
 #include <Effectrino.h>
-#include "ModuleIC.h"
-
+#include <StandardCplusplus.h>
 #include <map>
+
+#include "ModuleIC.h"
 
 USING_NAMESPASE_EFFECTRINO
 
@@ -22,29 +23,6 @@ class ModuleICRegistry
   protected:
     std::map<unsigned char, ModuleIC*> icMap;
 };
-
-inline ModuleIC* ModuleICRegistry::getICByIndex(const unsigned char index)
-{
-  if ( !icMap.count(index) )
-    return this->invalid();
-
-  return icMap[index];
-}
-
-inline void ModuleICRegistry::setICByIndex(const unsigned char index, ModuleIC* ic)
-{
-  icMap[index] = ic;
-}
-
-inline unsigned char ModuleICRegistry::size()
-{
-  return icMap.size();
-}
-
-inline ModuleIC* ModuleICRegistry::invalid()
-{
-  return (ModuleIC*)NULL;
-}
 
 END_EFFECTRINO_NAMESPACE
 

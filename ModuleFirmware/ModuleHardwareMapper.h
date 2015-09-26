@@ -1,5 +1,5 @@
-#ifndef MODULE_MIDI_MAPPER_H_
-#define MODULE_MIDI_MAPPER_H_
+#ifndef MODULE_HARDWARE_MAPPER_H_
+#define MODULE_HARDWARE_MAPPER_H_
 
 #include <Arduino.h>
 #include <Effectrino.h>
@@ -24,30 +24,6 @@ class ModuleHardwareMapper
     std::map<unsigned char, ModuleHardwareMapperItem*> ccMap;
     std::map<unsigned char, ModuleHardwareMapperItem*> noteMap;
 };
-
-ModuleHardwareMapper::ModuleHardwareMapper()
-{
-}
-
-ModuleHardwareMapperItem* ModuleHardwareMapper::getItemByCC(unsigned char controlIndex)
-{
-  return ccMap[controlIndex];
-}
-
-void ModuleHardwareMapper::setItemByCC(unsigned char controlIndex, ModuleHardwareMapperItem *item)
-{
-  ccMap[controlIndex] = item;
-}
-
-ModuleHardwareMapperItem* ModuleHardwareMapper::getItemByNote(unsigned char noteIndex)
-{
-  return noteMap[noteIndex];
-}
-
-void ModuleHardwareMapper::setItemByNote(unsigned char noteIndex, ModuleHardwareMapperItem *item)
-{
-  noteMap[noteIndex] = item;
-}
 
 END_EFFECTRINO_NAMESPACE
 

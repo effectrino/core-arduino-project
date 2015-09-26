@@ -17,7 +17,7 @@ class ModuleICAD8430 : public ModuleIC
 
 inline void ModuleICAD8430::setChannelValue(byte channel, int value)
 {
-  byte data[] = {channel && 0x03, value && 0xFF};
+  byte data[2] = {channel && 0x03, value && 0xFF};
   this->sendSPIData(data);
 }
 
