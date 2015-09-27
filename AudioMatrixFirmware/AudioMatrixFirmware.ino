@@ -1,14 +1,14 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Effectrino.h>
-#include <tools.h>
+#include <duino-tools.h>
 
 #include <AudioMatrixProtocol.h>
 #include <AudioMatrixMessage.h>
 
 // Fake dependencies (for hacking build process)
-#include <MIDI.h>
-#include <SoftwareSerial.h>
+// #include <MIDI.h>
+// #include <SoftwareSerial.h>
 
 
 USING_NAMESPASE_EFFECTRINO
@@ -32,7 +32,7 @@ const int LED_PIN = 13;
 void setup()
 {
 	// For debugging
-	initConsole();
+	initDebug();
 
 	pinMode(LED_PIN, OUTPUT);
 	digitalWrite(LED_PIN, LOW);
@@ -76,30 +76,33 @@ void receiveEvent(int eventLength)
 	*/
 void receiveMessage()
 {
-	AudioMatrixMessage msg = AMP.receiveMessage();
+	AudioMatrixMessage* msg = AMP.receiveMessage();
 
 	if ( !msg ) {
-		// Console << "Incorrect message received" << "\r\n";
+		Debug << F("Incorrect message received") << CRLF;
 		return;
 	}
 
-	// Console << "CMD = " << msg.getCommand() << "\r\n";
+	Debug << F("CMD = ") << msg->getCommand() << CRLF;
 
-	if ( msg.isReset() )
+	if ( msg->isReset() )
 	{
 		// Reset whole matrix
 		resetMatrix();
 	}
-	else if ( msg.isOn() )
+	else if ( msg->isOn() )
 	{
 		// Enable one crosspoint switch
-		setPoint(msg.getX(), msg.getY(), true);
+		setPoint(msg->getX(), msg->getY(), true);
 	}
-	else if ( msg.isOff() )
+	else if ( msg->isOff() )
 	{
 		// Disable one crosspoint switch
-		setPoint(msg.getX(), msg.getY(), false);
+		setPoint(msg->getX(), msg->getY(), false);
 	}
+
+	// Free up memory
+	delete msg;
 }
 
 void resetAddressPins()
