@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Audio",
+				"AudioMatrixMessage"
+			],
+			[
 				"Module",
 				"ModuleEffect"
 			],
@@ -83,6 +87,54 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/home/spotman/Arduino/libraries/Effectrino/Effectrino.h",
+			"settings":
+			{
+				"buffer_size": 941,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "AudioMatrixFirmware.ino",
+			"settings":
+			{
+				"buffer_size": 3881,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/spotman/Arduino/libraries/Effectrino/AudioMatrixMessage.cpp",
+			"settings":
+			{
+				"buffer_size": 1453,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/spotman/Arduino/libraries/Effectrino/AudioMatrixMessage.h",
+			"settings":
+			{
+				"buffer_size": 715,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/spotman/Arduino/libraries/Effectrino/AudioMatrixProtocol.cpp",
+			"settings":
+			{
+				"buffer_size": 2076,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/spotman/Arduino/libraries/Effectrino/AudioMatrixProtocol.h",
+			"settings":
+			{
+				"buffer_size": 655,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -121,6 +173,8 @@
 	},
 	"file_history":
 	[
+		"/home/spotman/Arduino/libraries/Effectrino/Effectrino.h",
+		"/home/spotman/Arduino/libraries/Effectrino/AudioMatrix.cpp",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffect.h",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectParameter.h",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleEffectParameterHardwareBinding.h",
@@ -139,7 +193,6 @@
 		"/home/spotman/Arduino/libraries/StandardCplusplus/cstdlib",
 		"/home/spotman/bin/arduino-1.6.4/hardware/arduino/avr/cores/arduino/Arduino.h",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleIC.cpp",
-		"/home/spotman/Arduino/libraries/Effectrino/Effectrino.h",
 		"/home/spotman/Arduino/libraries/StandardCplusplus/basic_definitions",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleHardwareMapperItem.cpp",
 		"/home/spotman/Arduino/Effectrino/ModuleFirmware/ModuleHardwareMapper.cpp",
@@ -206,6 +259,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"msg.",
+			"I2CAddress",
+			"DataMask",
+			"I2CAddress",
+			"DataMask",
+			"msg.",
 			"long",
 			"inline ",
 			"parameter",
@@ -250,6 +309,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"msg->",
 			"",
 			"hwMapper",
 			"ModuleHardwareMapperItem",
@@ -280,8 +340,182 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/home/spotman/Arduino/libraries/Effectrino/Effectrino.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 941,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								124,
+								124
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "AudioMatrixFirmware.ino",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3881,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1597,
+								1597
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/Stino/Arduino.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 14.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/spotman/Arduino/libraries/Effectrino/AudioMatrixMessage.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1453,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								297,
+								297
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/spotman/Arduino/libraries/Effectrino/AudioMatrixMessage.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 715,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								230,
+								230
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/spotman/Arduino/libraries/Effectrino/AudioMatrixProtocol.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2076,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								165,
+								165
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/spotman/Arduino/libraries/Effectrino/AudioMatrixProtocol.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 655,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								482,
+								482
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -621,6 +855,34 @@
 		"height": 100.0
 	},
 	"output.build|/home/spotman/Arduino/Effectrino/AddressSelectorTest|1442950845.579038":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/AudioMatrixFirmware|1443354041.8126872":
+	{
+		"height": 312.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/AudioMatrixFirmware|1443354111.0535064":
+	{
+		"height": 346.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/AudioMatrixFirmware|1443354150.3774824":
+	{
+		"height": 100.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/AudioMatrixFirmware|1443354161.416912":
+	{
+		"height": 408.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/AudioMatrixFirmware|1443354190.084646":
+	{
+		"height": 443.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/AudioMatrixFirmware|1443354215.8714705":
+	{
+		"height": 330.0
+	},
+	"output.build|/home/spotman/Arduino/Effectrino/AudioMatrixFirmware|1443354518.80033":
 	{
 		"height": 100.0
 	},
@@ -1432,7 +1694,7 @@
 	"project": "AudioMatrixFirmware.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
