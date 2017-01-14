@@ -13,27 +13,28 @@
 
 USING_NAMESPASE_EFFECTRINO
 
-bool Module::init()
-{
-  // TODO get JSON config
-  // char* moduleConfig = this->getConfig();
+// bool Module::init()
+// {
+//   // TODO get JSON config
+//   // char* moduleConfig = this->getConfig();
+//
+//   Debug << F("[before init from string] ");
+//   Debug.printFreeRam();
+//
+//   if (!this->initFromString())
+//   {
+//     return false;
+//   }
+// 
+//   Debug << F("[after init from string] ");
+//   Debug.printFreeRam();
+//
+//   // Select first effect
+//   this->selectEffectByIndex(0);
+//
+//   return true;
+// }
 
-  #include "TestJSONConfig.h"
-
-  Debug << F("[after JSON string include] ");
-  Debug.printFreeRam();
-
-  if ( !this->parseJSON(testJSONConfig) )
-    return false;
-
-  // Select first effect
-  this->selectEffectByIndex(0);
-
-  Debug << F("[after parsing config] ");
-  Debug.printFreeRam();
-
-  return true;
-}
 
 bool Module::parseJSON(char* input)
 {
@@ -42,10 +43,12 @@ bool Module::parseJSON(char* input)
   return parser.process(input);
 }
 
-// void Module::parseJSON(const Stream &input)
-// {
-//   // TODO someday
-// }
+bool Module::parseJSON(Stream& input)
+{
+  ConfigParser parser(this->icRegistry, this->fxRegistry);
+
+  return parser.process(input);
+}
 
 void Module::selectEffectByIndex(unsigned char fxIndex)
 {
@@ -57,7 +60,7 @@ void Module::selectEffectByIndex(unsigned char fxIndex)
 
   currentEffect = fx;
 
-  // Custom hardware init after effect selection 
+  // Custom hardware init after effect selection
   currentEffect->initHardware();
 }
 
@@ -102,10 +105,10 @@ void Module::ccEvent(const byte control, const byte value)
   // Exit if no mapper
   if ( !mapper )
   {
-    Debug << F("No mapper found") << CRLF;
+    Debug << F("No mapper found or no effect selected") << CRLF;
     return;
   }
- 
+
   ModuleHardwareMapperItem* item = mapper->getItemByCC(control);
 
   // Exit if no item assigned to CC

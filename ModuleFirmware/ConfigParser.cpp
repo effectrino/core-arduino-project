@@ -1,4 +1,4 @@
-// #include <Arduino.h>
+#include <Arduino.h>
 //#include <Effectrino.h>
 //#include <duino-tools.h>
 // #include <ArduinoJson.h>
@@ -17,19 +17,26 @@ ConfigParser::ConfigParser(ModuleICRegistry& icR, ModuleEffectRegistry& fxR) : i
 
 bool ConfigParser::process(char* input)
 {
+  return this->processRoot(this->jsonBuffer.parseObject(input));
+}
+
+bool ConfigParser::process(Stream& s)
+{
+  return this->processRoot(this->jsonBuffer.parseObject(s));
+}
+
+bool ConfigParser::processRoot(JsonObject& root)
+{
   const char* hardwareKey = "hw";
   const char* effectsKey = "fx";
-
-  JsonObject& root = this->jsonBuffer.parseObject(input);
 
   if ( !root.success() )
   {
     Debug << F("Root parsing failed! Not enougth buffer space?") << CRLF;
     return false;
   }
-  
-  Debug << F("[in parsing process] ");
-  Debug.printFreeRam();
+
+  Debug.printFreeRam(F("in parsing process"));
 
   // Parse hardware list
   if ( !root.containsKey(hardwareKey) || !this->parseHardware(root[hardwareKey]) )
@@ -352,4 +359,3 @@ ModuleEffectParameterHardwareBinding* ConfigParser::moduleEffectParameterHardwar
 {
   return new ModuleEffectParameterHardwareBinding(data[0], data[1]);
 }
-

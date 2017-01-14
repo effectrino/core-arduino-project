@@ -4,7 +4,7 @@
 #include <SoftwareSerial.h>
 
 // Some useful tools
-#include <tools.h>
+#include <duino-tools.h>
 
 // Headers
 #include <Effectrino.h>
@@ -64,7 +64,7 @@ MIDI_CREATE_INSTANCE(SoftwareSerial, CoreModuleMIDISerialPort, CoreModuleMIDI);
 
 void setup()
 {
-    initConsole();
+    initDebug();
 
     pinMode(LED, OUTPUT);
     digitalWrite(LED, LOW);
@@ -100,14 +100,14 @@ void initMIDI()
 
 
     // Callbacks
-    CoreExternalMIDI.setHandleNoteOn(handleCoreNoteOn); 
-    CoreExternalMIDI.setHandleNoteOff(handleCoreNoteOff); 
-    CoreExternalMIDI.setHandleControlChange(handleCoreControlChange); 
+    CoreExternalMIDI.setHandleNoteOn(handleCoreNoteOn);
+    CoreExternalMIDI.setHandleNoteOff(handleCoreNoteOff);
+    CoreExternalMIDI.setHandleControlChange(handleCoreControlChange);
 
     // TODO Configure MIDI Thru
     // CoreExternalMIDI.setThruFilterMode(MIDI_NAMESPACE::Off);
     CoreExternalMIDI.setThruFilterMode(MIDI_NAMESPACE::Full);
-    
+
     // Listening to all channels
     CoreExternalMIDI.begin(MIDI_CHANNEL_OMNI);
 }
@@ -144,11 +144,11 @@ void handleCoreNoteOn(byte channel, byte pitch, byte velocity)
     // otherwise it would slow down the loop() and have a bad impact
     // on real-time performance.
 
-    Console << "NoteOn: pitch = " << pitch << ", velocity = " << velocity << "\r\n"; //"channel: " + 
-    // Serial.println(channel, DEC); //"channel: " + 
-    // Serial.println(pitch, DEC); //", note pitch: " + 
-    // Serial.println(velocity, DEC); //", velocity: " + 
-    
+    Debug << "NoteOn: pitch = " << pitch << ", velocity = " << velocity << "\r\n"; //"channel: " +
+    // Serial.println(channel, DEC); //"channel: " +
+    // Serial.println(pitch, DEC); //", note pitch: " +
+    // Serial.println(velocity, DEC); //", velocity: " +
+
     // TODO Get channel from system MIDI config
     if ( channel == MIDIInputChannel )
     {
@@ -184,12 +184,12 @@ void handleCoreNoteOff(byte channel, byte pitch, byte velocity)
     digitalWrite(LED, LOW);
     // return;
 
-    Console << "NoteOff: pitch = " << pitch << "\r\n"; //"channel: " + 
+    Debug << "NoteOff: pitch = " << pitch << "\r\n"; //"channel: " +
 
-    // Serial.println("NoteOff"); //"channel: " + 
-    // Serial.println(channel, DEC); //"channel: " + 
-    // Serial.println(pitch, DEC); //", note pitch: " + 
-    // Serial.println(velocity, DEC); //", velocity: " + 
+    // Serial.println("NoteOff"); //"channel: " +
+    // Serial.println(channel, DEC); //"channel: " +
+    // Serial.println(pitch, DEC); //", note pitch: " +
+    // Serial.println(velocity, DEC); //", velocity: " +
 
     // Do something when the note is released.
     // Note that NoteOn messages with 0 velocity are interpreted as NoteOffs.
@@ -214,13 +214,13 @@ void handleCoreNoteOff(byte channel, byte pitch, byte velocity)
 
 void handleCoreControlChange(byte channel, byte number, byte value)
 {
-  // Serial.println("ControlChange"); 
-  // Serial.println(channel, DEC); 
-  // Serial.println(number, DEC); 
+  // Serial.println("ControlChange");
+  // Serial.println(channel, DEC);
+  // Serial.println(number, DEC);
   // Serial.println(value, DEC);
 
   // TODO get "CC => Slot + CC" mapping
-  // Send CC to module  
+  // Send CC to module
 }
 
 // void matrixSendOn(int x, int y)

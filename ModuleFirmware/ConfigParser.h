@@ -2,7 +2,7 @@
 #define CONFIG_PARSER_H_
 
 #include <Arduino.h>
-#include <StandardCplusplus.h>
+// #include <StandardCplusplus.h>
 #include <Effectrino.h>
 // #include <Debug.h>
 #include <ArduinoJson.h>
@@ -24,14 +24,16 @@ class ConfigParser
 {
   public:
     ConfigParser(ModuleICRegistry& icR, ModuleEffectRegistry& fxR);
-    boolean process(char* input);
+    bool process(char* input);
+    bool process(Stream& s);
 
   protected:
-    StaticJsonBuffer<768> jsonBuffer;
-    
+    StaticJsonBuffer<2048> jsonBuffer;
+
     ModuleICRegistry& icRegistry;
     ModuleEffectRegistry& fxRegistry;
 
+    bool processRoot(JsonObject& root);
     bool parseHardware(JsonArray& source);
     bool parseEffects(JsonArray& source);
     bool parseEffectParameters(JsonArray& source, ModuleEffect* fxInstance);

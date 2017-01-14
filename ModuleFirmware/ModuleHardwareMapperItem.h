@@ -4,7 +4,7 @@
 // #include <Arduino.h>
 #include <Effectrino.h>
 #include <duino-tools.h>
-#include <StandardCplusplus.h>
+// #include <StandardCplusplus.h>
 #include <vector>
 
 #include "ModuleICRegistry.h"

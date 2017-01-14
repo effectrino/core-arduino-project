@@ -2,7 +2,7 @@
 #define MODULE_IC_H_
 
 #include <Arduino.h>
-#include <StandardCplusplus.h>
+// #include <StandardCplusplus.h>
 #include <Effectrino.h>
 // #include <SPI.h>
 
@@ -18,7 +18,7 @@ class ModuleIC {
     ModuleIC* setCSPin(uint8_t pin);
     ModuleIC* setInverseCS(bool pin);
     ModuleIC* setSPISpeed(uint8_t speedInMHz);
-    
+
     // TODO set channels pinout
 
     virtual void setChannelValue(uint8_t channel, int value) = 0;

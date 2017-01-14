@@ -1,7 +1,6 @@
 // #include <Arduino.h>
 #include <Effectrino.h>
-#include <StandardCplusplus.h>
-#include <map>
+// #include <map>
 
 #include "ModuleEffectRegistry.h"
 // #include "ModuleEffect.h"

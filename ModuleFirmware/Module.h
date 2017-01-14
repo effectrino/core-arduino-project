@@ -1,8 +1,9 @@
 #ifndef MODULE_H_
 #define MODULE_H_
 
+#include <Arduino.h>
 #include <ArduinoJson.h>
-#include <StandardCplusplus.h>
+// #include <StandardCplusplus.h>
 #include <Effectrino.h>
 #include <duino-tools.h>
 // #include <MIDI.h>
@@ -24,8 +25,10 @@ BEGIN_EFFECTRINO_NAMESPACE
 class Module {
 
   public:
-    bool init();
+    // bool init();
+
     bool parseJSON(char* input);
+    bool parseJSON(Stream& input);
 
     void noteOnEvent(const byte pitch, const byte velocity);
     void noteOffEvent(const byte pitch);
@@ -35,7 +38,7 @@ class Module {
 
   protected:
     // Pointer to current effect
-    ModuleEffect* currentEffect = (ModuleEffect*)NULL; 
+    ModuleEffect* currentEffect = (ModuleEffect*)NULL;
 
     // Effects instances
     ModuleEffectRegistry fxRegistry;

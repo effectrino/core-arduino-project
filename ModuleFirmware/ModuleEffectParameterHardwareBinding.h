@@ -2,7 +2,7 @@
 #define MODULE_EFFECT_PARAMETER_HARDWARE_BINDING_H_
 
 #include <Arduino.h>
-#include <StandardCplusplus.h>
+// #include <StandardCplusplus.h>
 #include <Effectrino.h>
 
 

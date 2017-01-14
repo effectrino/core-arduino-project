@@ -27,14 +27,14 @@ ModuleIC * ModuleIC::setSPISpeed(uint8_t speedInMHz)
 void ModuleIC::sendSPIData(uint8_t data[])
 {
   SPISettings spiSettings(SPISpeed, MSBFIRST, SPI_MODE0);
-  
+
   // take the CS pin to select the chip
   setCS(HIGH);
 
   // configure SPI and start transaction
   SPI.beginTransaction(spiSettings);
-  
-  for (int i = 0; i < (sizeof(data)/sizeof(uint8_t)); i++)
+
+  for (unsigned int i = 0; i < (sizeof(data)/sizeof(uint8_t)); i++)
   {
     SPI.transfer(data[i]);
   }
